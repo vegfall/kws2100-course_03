@@ -93,7 +93,7 @@ export function KommuneLayerCheckbox({
         />
         {checked ? "Hide" : "Show"} kommune layer
       </label>
-      <div ref={overlayRef}>
+      <div ref={overlayRef} className={"kommune-overlay"}>
         {selectedKommune && (
           <>
             {
