@@ -5,6 +5,7 @@ import { OSM } from "ol/source";
 import { useGeographic } from "ol/proj";
 import "./application.css";
 import "ol/ol.css";
+import { KommuneLayerCheckbox } from "../kommune/kommuneLayerCheckbox";
 
 useGeographic();
 
@@ -18,13 +19,28 @@ export function Application() {
 
   useEffect(() => map.setTarget(mapRef.current), []);
 
+  function handleFocusUser(e: React.MouseEvent) {
+    e.preventDefault();
+
+    navigator.geolocation.getCurrentPosition((pos) => {
+      const { latitude, longitude } = pos.coords;
+      map.getView().animate({
+        center: [longitude, latitude],
+        zoom: 12,
+      });
+    });
+  }
+
   return (
     <>
       <header>
         <h1>Kart</h1>
       </header>
       <nav>
-        <a href="#">Focus on me</a>
+        <a href="#" onClick={handleFocusUser}>
+          Focus on me
+        </a>
+        <KommuneLayerCheckbox />
       </nav>
       <div ref={mapRef}></div>
     </>
