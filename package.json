@@ -2,6 +2,8 @@
   "name": "course",
   "version": "1.0.0",
   "devDependencies": {
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
     "prettier": "^3.2.4",
     "typescript": "^5.3.3",
     "vite": "^5.0.12"
@@ -11,6 +13,9 @@
     "react-dom": "^18.2.0"
   },
   "scripts": {
-    "dev": "vite"
+    "dev": "vite",
+    "build": "npm run check && vite build",
+    "check": "prettier --check . && tsc --noEmit",
+    "prettier:update": "prettier --write ."
   }
 }
