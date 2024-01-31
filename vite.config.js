@@ -1,3 +1,3 @@
 export default {
-  base: "/course",
+  base: "/kws2100-course_03",
 };
