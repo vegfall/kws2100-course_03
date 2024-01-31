@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useEffect, useRef } from "react";
+import React, { MutableRefObject, useEffect, useRef, useState } from "react";
 import { Map, View } from "ol";
 import TileLayer from "ol/layer/Tile";
 import { OSM } from "ol/source";
@@ -6,18 +6,26 @@ import { useGeographic } from "ol/proj";
 import "./application.css";
 import "ol/ol.css";
 import { KommuneLayerCheckbox } from "../kommune/kommuneLayerCheckbox";
+import { Layer } from "ol/layer";
 
 useGeographic();
 
 const map = new Map({
-  layers: [new TileLayer({ source: new OSM() })],
   view: new View({ center: [11, 60], zoom: 10 }),
 });
 
 export function Application() {
   const mapRef = useRef() as MutableRefObject<HTMLDivElement>;
 
+  const [layers, setLayers] = useState<Layer[]>([
+    new TileLayer({ source: new OSM() }),
+  ]);
+
   useEffect(() => map.setTarget(mapRef.current), []);
+
+  useEffect(() => {
+    map.setLayers(layers);
+  }, [layers]);
 
   function handleFocusUser(e: React.MouseEvent) {
     e.preventDefault();
@@ -40,7 +48,7 @@ export function Application() {
         <a href="#" onClick={handleFocusUser}>
           Focus on me
         </a>
-        <KommuneLayerCheckbox />
+        <KommuneLayerCheckbox setLayers={setLayers} />
       </nav>
       <div ref={mapRef}></div>
     </>
