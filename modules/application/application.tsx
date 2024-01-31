@@ -3,6 +3,8 @@ import { Map, View } from "ol";
 import TileLayer from "ol/layer/Tile";
 import { OSM } from "ol/source";
 import { useGeographic } from "ol/proj";
+import "./application.css";
+import "ol/ol.css";
 
 useGeographic();
 
@@ -16,5 +18,15 @@ export function Application() {
 
   useEffect(() => map.setTarget(mapRef.current), []);
 
-  return <div ref={mapRef}>Map here</div>;
+  return (
+    <>
+      <header>
+        <h1>Kart</h1>
+      </header>
+      <nav>
+        <a href="#">Focus on me</a>
+      </nav>
+      <div ref={mapRef}></div>
+    </>
+  );
 }
